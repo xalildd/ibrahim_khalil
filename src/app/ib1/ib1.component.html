@@ -1,0 +1,48 @@
+<form (ngSubmit)="onSubmit(ib1Form)" #ib1Form="ngForm">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" name="name" ngModel required>
+      <div *ngIf="ib1Form.controls.name.invalid && ib1Form.controls.name.touched">
+        <span *ngIf="ib1Form.controls.name.errors?.required">Name is required</span>
+      </div>
+    </div>
+  
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" name="email" ngModel required email>
+      <div *ngIf="ib1Form.controls.email.invalid && ib1Form.controls.email.touched">
+        <span *ngIf="ib1Form.controls.email.errors?.required">Email is required</span>
+        <span *ngIf="ib1Form.controls.email.errors?.email">Invalid email address</span>
+      </div>
+    </div>
+  
+    <div>
+      <label>Programming Languages:</label>
+      <div *ngFor="let language of programmingLanguages">
+        <input type="checkbox" name="programmingLanguages" [value]="language" ngModel>
+        <label>{{language}}</label>
+      </div>
+      <div *ngIf="!ib1Form.controls.programmingLanguages?.value">
+        <span>At least one programming language must be selected</span>
+      </div>
+    </div>
+  
+    <div>
+      <label>Experience Level:</label>
+      <div *ngFor="let level of experienceLevels">
+        <input type="radio" name="experienceLevel" [value]="level" ngModel required>
+        <label>{{level}}</label>
+      </div>
+    </div>
+  
+    <div>
+      <label for="projectDescription">Project Description:</label>
+      <textarea name="projectDescription" ngModel required minlength="10"></textarea>
+      <div *ngIf="ib1Form.controls.projectDescription.invalid && ib1Form.controls.projectDescription.touched">
+        <span *ngIf="ib1Form.controls.projectDescription.errors?.required">Project description is required</span>
+        <span *ngIf="ib1Form.controls.projectDescription.errors?.minlength">Project description must be at least 10 characters long</span>
+      </div>
+    </div>
+  
+    <button type="submit" [disabled]="ib1Form.invalid">Submit</button>
+  </form>
